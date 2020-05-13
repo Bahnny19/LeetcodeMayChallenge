@@ -41,3 +41,10 @@ class Solution(object):
             
         return count;
             
+
+****************************************************************************************************************************************
+            
+Status: Accepted
+254 / 254 test cases passed.
+Runtime: 8 ms
+Memory Usage: 12.9 MB            
