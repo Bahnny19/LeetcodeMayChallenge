@@ -1,0 +1,94 @@
+*Implement Trie (Prefix Tree)*
+
+Implement a trie with insert, search, and startsWith methods.
+
+****************************************************************************************************************************************
+
+Example:
+
+Trie trie = new Trie();
+
+trie.insert("apple");
+trie.search("apple");   // returns true
+trie.search("app");     // returns false
+trie.startsWith("app"); // returns true
+trie.insert("app");   
+trie.search("app");     // returns true
+
+****************************************************************************************************************************************
+
+Note:
+
+You may assume that all inputs are consist of lowercase letters a-z.
+All inputs are guaranteed to be non-empty strings.
+
+****************************************************************************************************************************************
+
+class TrieNode :
+    def __init__(self):
+        
+        self.children = [None] * 26;
+        self.isLastNode = False;
+        
+class Trie:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.root = TrieNode();
+        
+
+    def indexAt(self, i: str) -> None:
+        return ord(i) - ord('a');   
+    
+    def insert(self, word: str) -> None:
+        """
+        Inserts a word into the trie.
+        """
+        current = self.root;
+        length = len(word);
+        for i in word :
+            if(current.children[self.indexAt(i)] == None ) :
+                current.children[self.indexAt(i)] = TrieNode();
+            current = current.children[self.indexAt(i)];
+        current.isLastNode = True;
+
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the trie.
+        """
+        current = self.root;
+        length = len(word);
+        for i in word :
+            if current.children[self.indexAt(i)] == None :
+                return False;
+            current = current.children[self.indexAt(i)];
+        if current != None and current.isLastNode :     
+            return True;
+        
+    def startsWith(self, prefix: str) -> bool:
+        """
+        Returns if there is any word in the trie that starts with the given prefix.
+        """
+        current = self.root;
+        length = len(prefix);
+        for i in prefix :
+            if current.children[self.indexAt(i)] == None :
+                return False;
+            current = current.children[self.indexAt(i)];
+        return True;
+        
+
+
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
+
+****************************************************************************************************************************************
+
+Status: Accepted
+15 / 15 test cases passed.
+Runtime: 328ms
